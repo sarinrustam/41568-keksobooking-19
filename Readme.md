@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Рустам Сарин](https://up.htmlacademy.ru/javascript/19/user/41568).
-* Наставник: `Неизвестно`.
+* Наставник: [Руфат Хасларов](https://htmlacademy.ru/profile/id372587).
 
 ---
 
