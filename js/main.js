@@ -22,9 +22,7 @@ var getRandom = function (from, to) {
 
 // функция генерирования случайного элемента массива
 var getRandomElement = function (array) {
-  var i = getRandom(0, array.length - 1);
-
-  return array[i];
+  return array[getRandom(0, array.length - 1)];
 };
 
 // функция генерирования случайного подмассива
