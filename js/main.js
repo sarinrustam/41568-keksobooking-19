@@ -9,6 +9,8 @@ var PIN_CLIENT_WIDTH = 25;
 var PIN_CLIENT_HEIGHT = 70;
 var COUNT_ADS = 8;
 
+var mapPinsList = document.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 // функция генерации случайнго числа от и до(например от 1 до 23)
 var getRandomNumber = function (from, to) {
   return Math.round(Math.random() * to) + from;
@@ -65,7 +67,6 @@ var generateObject = function (i) {
   };
 };
 
-
 var generateAds = function () {
   var ads = [];
 
@@ -76,11 +77,8 @@ var generateAds = function () {
   return ads;
 };
 
-
 document.querySelector('.map').classList.remove('map--faded');
 
-var mapPinsList = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 // функция создания кнопки-пина и заполнения кнопки данными из массива
 var renderPinElement = function (element) {
   var pinElement = pinTemplate.cloneNode(true);
