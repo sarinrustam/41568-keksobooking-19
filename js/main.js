@@ -40,8 +40,8 @@ var generateRandomArray = function (array) {
   return newArray;
 };
 // функция получения рандомного числа от ширины блока с картой
+var clientX = document.querySelector('.map__overlay').clientWidth;
 var getRandomClientX = function () {
-  var clientX = document.querySelector('.map__overlay').clientWidth;
   return getRandomNumber(1, clientX);
 };
 // функция генерации обьекта с данными
@@ -94,7 +94,7 @@ var renderPinElement = function (element) {
 
   var pinElementImage = pinElement.querySelector('img');
   pinElementImage.src = element.author.avatar;
-  pinElementImage.alt = 'Hello World';
+  pinElementImage.alt = element.offer.title;
 
   return pinElement;
 };
@@ -114,7 +114,6 @@ var renderPinElements = function () {
 
 renderPinElements();
 
-// module3-task3
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 var renderCard = function (card) {
