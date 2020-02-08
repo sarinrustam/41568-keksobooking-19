@@ -244,3 +244,26 @@ pasteAddress();
 mapPinMain.addEventListener('mousedown', getActivePage);
 mapPinMain.addEventListener('mousedown', pasteAddress);
 mapPinMain.addEventListener('keydown', getActivePage);
+
+var inputRooms = document.querySelector('#room_number');
+var inputGuests = document.querySelector('#capacity');
+// console.log(inputRooms.value);
+
+var validateGuests = function () {
+  if (Number(inputRooms.value) === 1 && (Number(inputGuests.value) > 1 || Number(inputGuests.value) === 0)) {
+    inputGuests.setCustomValidity('1 комната — «для 1 гостя»');
+  } else if (Number(inputRooms.value) === 2 && (Number(inputGuests.value) > 2 || Number(inputGuests.value) === 0)) {
+    inputGuests.setCustomValidity('2 комнаты — «для 2 гостей» или «для 1 гостя»');
+  } else if (Number(inputRooms.value) === 3 && (Number(inputGuests.value) > 3 || Number(inputGuests.value) === 0)) {
+    inputGuests.setCustomValidity('3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»');
+  } else if (Number(inputRooms.value) === 100 && Number(inputGuests.value) !== 0) {
+    inputGuests.setCustomValidity('100 комнат — «не для гостей»');
+  } else {
+    inputGuests.setCustomValidity('');
+  }
+};
+
+validateGuests();
+
+inputRooms.addEventListener('change', validateGuests);
+inputGuests.addEventListener('change', validateGuests);
