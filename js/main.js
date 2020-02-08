@@ -14,6 +14,10 @@ var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
 var PIN_CLIENT_WIDTH = 25;
 var PIN_CLIENT_HEIGHT = 70;
 var COUNT_ADS = 8;
+var LEFT_CLICK_CODE = 0;
+var ENTER_KEY = 'Enter';
+var pinMainWidth = 65;
+var pinMainHeight = 65;
 
 var mapPinsList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -39,12 +43,12 @@ var generateRandomArray = function (array) {
   }
   return newArray;
 };
-// функция получения рандомного числа от ширины блока с картой
+
 var clientX = document.querySelector('.map__overlay').clientWidth;
 var getRandomClientX = function () {
   return getRandomNumber(1, clientX);
 };
-// функция генерации обьекта с данными
+
 var generateObject = function (i) {
   var locationX = getRandomClientX();
   var locationY = getRandomNumber(130, 630);
@@ -83,9 +87,6 @@ var generateAds = function () {
   return ads;
 };
 
-document.querySelector('.map').classList.remove('map--faded');
-
-// функция создания кнопки-пина и заполнения кнопки данными из массива
 var renderPinElement = function (element) {
   var pinElement = pinTemplate.cloneNode(true);
 
@@ -101,7 +102,6 @@ var renderPinElement = function (element) {
 
 var ads = generateAds();
 
-// функция заполнения блока пинами
 var renderPinElements = function () {
   var fragment = document.createDocumentFragment();
 
@@ -111,8 +111,6 @@ var renderPinElements = function () {
 
   mapPinsList.appendChild(fragment);
 };
-
-renderPinElements();
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
@@ -199,4 +197,50 @@ var renderCard = function (card) {
 
 var mapFilterContainer = document.querySelector('.map__filters-container');
 
-mapFilterContainer.before(renderCard(ads[0]));
+var disabledFieldsets = function (disabled) {
+  var formFieldset = document.querySelector('.ad-form').children;
+
+  for (var i = 0; i < formFieldset.length; i++) {
+    formFieldset[i].disabled = disabled;
+  }
+};
+
+disabledFieldsets(true);
+
+var mapPinMain = document.querySelector('.map__pin--main');
+// var mapFilters = document.querySelector('.map__filters');
+var adForm = document.querySelector('.ad-form');
+var mapSection = document.querySelector('.map');
+
+var getActivePage = function (evt) {
+  if (evt.button === LEFT_CLICK_CODE || evt.key === ENTER_KEY) {
+    mapSection.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    disabledFieldsets(false);
+    renderPinElements();
+    mapFilterContainer.before(renderCard(ads[0]));
+  }
+};
+
+var getMainPinCoordinate = function () {
+  var pinMainLeft = parseInt(mapPinMain.style.left, 10);
+  var pinMainTop = parseInt(mapPinMain.style.top, 10);
+
+  if (mapSection.classList.contains('map--fadded')) {
+    return Math.round(pinMainLeft + pinMainWidth / 2) + ', ' + Math.round(pinMainTop + pinMainHeight / 2);
+  }
+
+  return Math.round(pinMainLeft + pinMainWidth / 2) + ', ' + Math.round(pinMainTop + pinMainHeight);
+};
+
+var pasteAddress = function () {
+  var inputAddress = document.querySelector('#address');
+
+  inputAddress.value = getMainPinCoordinate();
+};
+
+pasteAddress();
+
+mapPinMain.addEventListener('mousedown', getActivePage);
+mapPinMain.addEventListener('mousedown', pasteAddress);
+mapPinMain.addEventListener('keydown', getActivePage);
