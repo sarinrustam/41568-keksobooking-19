@@ -14,8 +14,14 @@ var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
 var PIN_CLIENT_WIDTH = 25;
 var PIN_CLIENT_HEIGHT = 70;
 var COUNT_ADS = 8;
-var LEFT_CLICK_CODE = 0;
-var ENTER_KEY = 'Enter';
+var ENUM_BUTTONS = {
+  LMB: 0,
+  ENT: 'Enter',
+  ESC: 'Escape'
+};
+var MIN_TITLE_LENGHT = 30;
+var MAX_TITLE_LENGHT = 100;
+var MAX_PRICE = 1000000;
 var pinMainWidth = 65;
 var pinMainHeight = 65;
 
@@ -97,6 +103,17 @@ var renderPinElement = function (element) {
   pinElementImage.src = element.author.avatar;
   pinElementImage.alt = element.offer.title;
 
+  var onPopupOpen = function () {
+    var mapFilterContainer = document.querySelector('.map__filters-container');
+    mapFilterContainer.before(renderCard(element));
+  };
+
+  pinElement.addEventListener('click', onPopupOpen);
+  pinElement.addEventListener('keydown', function (evt) {
+    if (evt.key === ENUM_BUTTONS.ENT) {
+      onPopupOpen();
+    }
+  });
   return pinElement;
 };
 
@@ -111,6 +128,7 @@ var renderPinElements = function () {
 
   mapPinsList.appendChild(fragment);
 };
+
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
@@ -127,7 +145,6 @@ var renderCard = function (card) {
   } else {
     cardElementAdress.classList.add('hidden');
   }
-
 
   var cardElementPrice = cardElement.querySelector('.popup__text--price');
   if (card.offer.price) {
@@ -192,10 +209,27 @@ var renderCard = function (card) {
   var cardElementAvatar = cardElement.querySelector('.popup__avatar');
   cardElementAvatar.src = card.author.avatar;
 
+  var cardPopupClose = cardElement.querySelector('.popup__close');
+
+  var onClosePopup = function () {
+    cardElement.parentNode.removeChild(cardElement);
+  };
+
+  cardPopupClose.addEventListener('click', onClosePopup);
+  cardPopupClose.addEventListener('keydown', function (evt) {
+    if (evt.key === ENUM_BUTTONS.ESC) {
+      onClosePopup();
+    }
+  });
+
+  var currentMapCard = document.querySelector('.map__card');
+
+  if (currentMapCard) {
+    currentMapCard.parentNode.removeChild(currentMapCard);
+  }
+
   return cardElement;
 };
-
-var mapFilterContainer = document.querySelector('.map__filters-container');
 
 var disabledFieldsets = function (disabled) {
   var formFieldset = document.querySelector('.ad-form').children;
@@ -213,12 +247,13 @@ var adForm = document.querySelector('.ad-form');
 var mapSection = document.querySelector('.map');
 
 var getActivePage = function (evt) {
-  if (evt.button === LEFT_CLICK_CODE || evt.key === ENTER_KEY) {
+  if (evt.button === ENUM_BUTTONS.LMB || evt.key === ENUM_BUTTONS.ENT) {
     mapSection.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     disabledFieldsets(false);
     renderPinElements();
-    mapFilterContainer.before(renderCard(ads[0]));
+    mapPinMain.removeEventListener('mousedown', getActivePage);
+    mapPinMain.removeEventListener('keydown', getActivePage);
   }
 };
 
@@ -235,7 +270,6 @@ var getMainPinCoordinate = function () {
 
 var pasteAddress = function () {
   var inputAddress = document.querySelector('#address');
-
   inputAddress.value = getMainPinCoordinate();
 };
 
@@ -267,3 +301,29 @@ validateGuests();
 
 inputRooms.addEventListener('change', validateGuests);
 inputGuests.addEventListener('change', validateGuests);
+
+var inputTitle = document.querySelector('#title');
+
+var validateTitle = function () {
+  if (inputTitle.validity.tooShort) {
+    inputTitle.setCustomValidity('Описание должно быть не меннее ' + MIN_TITLE_LENGHT + ' симоволов');
+  } else if (inputTitle.validity.tooLong) {
+    inputTitle.setCustomValidity('Описание не должно привышать ' + MAX_TITLE_LENGHT + ' символов');
+  } else {
+    inputTitle.setCustomValidity('');
+  }
+};
+
+inputTitle.addEventListener('input', validateTitle);
+
+var inputType = document.querySelector('#type');
+var inputPrice = document.querySelector('#price');
+inputPrice.addEventListener('input', function () {
+  if (inputPrice.value > MAX_PRICE) {
+    inputPrice.setCustomValidity('Стоимость за ночь не может быть больше ' + MAX_PRICE);
+  }
+});
+
+var validateType = function () {
+  if (inputType === )
+};
