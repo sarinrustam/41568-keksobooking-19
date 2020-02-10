@@ -344,13 +344,13 @@ inputType.addEventListener('input', validateType);
 var inputArrival = document.querySelector('#timein');
 var inputDeparture = document.querySelector('#timeout');
 
-var validateTimeArrival = function () {
+var arrivalChangeHandler = function () {
   inputDeparture.value = inputArrival.value;
 };
 
-var validateTimeDeparture = function () {
+var departureChangeHandler = function () {
   inputArrival.value = inputDeparture.value;
 };
 
-inputArrival.addEventListener('change', validateTimeArrival);
-inputDeparture.addEventListener('change', validateTimeDeparture);
+inputArrival.addEventListener('change', arrivalChangeHandler);
+inputDeparture.addEventListener('change', departureChangeHandler);
