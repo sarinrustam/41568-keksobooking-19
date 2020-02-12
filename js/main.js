@@ -26,7 +26,7 @@ var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
 var PIN_CLIENT_WIDTH = 25;
 var PIN_CLIENT_HEIGHT = 70;
 var COUNT_ADS = 8;
-var ENUM_BUTTONS = {
+var BUTTONS = {
   LMB: 0,
   ENT: 'Enter',
   ESC: 'Escape'
@@ -115,15 +115,15 @@ var renderPinElement = function (element) {
   pinElementImage.src = element.author.avatar;
   pinElementImage.alt = element.offer.title;
 
-  var onPopupOpen = function () {
+  var popupOpenHandler = function () {
     var mapFilterContainer = document.querySelector('.map__filters-container');
     mapFilterContainer.before(renderCard(element));
   };
 
-  pinElement.addEventListener('click', onPopupOpen);
+  pinElement.addEventListener('click', popupOpenHandler);
   pinElement.addEventListener('keydown', function (evt) {
-    if (evt.key === ENUM_BUTTONS.ENT) {
-      onPopupOpen();
+    if (evt.key === BUTTONS.ENT) {
+      popupOpenHandler();
     }
   });
   return pinElement;
@@ -223,14 +223,14 @@ var renderCard = function (card) {
 
   var cardPopupClose = cardElement.querySelector('.popup__close');
 
-  var onClosePopup = function () {
+  var closePopupHandler = function () {
     cardElement.parentNode.removeChild(cardElement);
   };
 
-  cardPopupClose.addEventListener('click', onClosePopup);
+  cardPopupClose.addEventListener('click', closePopupHandler);
   cardPopupClose.addEventListener('keydown', function (evt) {
-    if (evt.key === ENUM_BUTTONS.ESC) {
-      onClosePopup();
+    if (evt.key === BUTTONS.ESC) {
+      closePopupHandler();
     }
   });
 
@@ -254,18 +254,17 @@ var toggleFieldsAvailability = function (disabled) {
 toggleFieldsAvailability(true);
 
 var mapPinMain = document.querySelector('.map__pin--main');
-// var mapFilters = document.querySelector('.map__filters');
 var adForm = document.querySelector('.ad-form');
 var mapSection = document.querySelector('.map');
 
-var activatePage = function (evt) {
-  if (evt.button === ENUM_BUTTONS.LMB || evt.key === ENUM_BUTTONS.ENT) {
+var activatePageHandler = function (evt) {
+  if (evt.button === BUTTONS.LMB || evt.key === BUTTONS.ENT) {
     mapSection.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     toggleFieldsAvailability(false);
     renderPinElements();
-    mapPinMain.removeEventListener('mousedown', activatePage);
-    mapPinMain.removeEventListener('keydown', activatePage);
+    mapPinMain.removeEventListener('mousedown', activatePageHandler);
+    mapPinMain.removeEventListener('keydown', activatePageHandler);
   }
 };
 
@@ -280,21 +279,17 @@ var getMainPinCoordinate = function () {
   return Math.round(pinMainLeft + PIN_MAIN_WIDTH / 2) + ', ' + Math.round(pinMainTop + PIN_MAIN_HEIGTH);
 };
 
-var setMainPinCoordinate = function () {
+var setMainPinCoordinateHandler = function () {
   var inputAddress = document.querySelector('#address');
   inputAddress.value = getMainPinCoordinate();
 };
 
-setMainPinCoordinate();
-
-mapPinMain.addEventListener('mousedown', activatePage);
-mapPinMain.addEventListener('mousedown', setMainPinCoordinate);
-mapPinMain.addEventListener('keydown', activatePage);
+setMainPinCoordinateHandler();
 
 var inputRooms = document.querySelector('#room_number');
 var inputGuests = document.querySelector('#capacity');
 
-var validateGuests = function () {
+var validateGuestsHandler = function () {
   var rooms = Number(inputRooms.value);
   var guests = Number(inputGuests.value);
 
@@ -311,14 +306,14 @@ var validateGuests = function () {
   }
 };
 
-validateGuests();
+validateGuestsHandler();
 
-inputRooms.addEventListener('change', validateGuests);
-inputGuests.addEventListener('change', validateGuests);
+inputRooms.addEventListener('change', validateGuestsHandler);
+inputGuests.addEventListener('change', validateGuestsHandler);
 
 var inputTitle = document.querySelector('#title');
 
-var validateTitle = function () {
+var validateTitleHandler = function () {
   if (inputTitle.validity.tooShort) {
     inputTitle.setCustomValidity('Описание должно быть не меннее ' + MIN_TITLE_LENGHT + ' симоволов');
   } else if (inputTitle.validity.tooLong) {
@@ -328,7 +323,7 @@ var validateTitle = function () {
   }
 };
 
-inputTitle.addEventListener('input', validateTitle);
+inputTitle.addEventListener('input', validateTitleHandler);
 
 var inputType = document.querySelector('#type');
 var inputPrice = document.querySelector('#price');
@@ -338,12 +333,12 @@ inputPrice.addEventListener('input', function () {
   }
 });
 
-var validateType = function () {
+var validateTypeHandler = function () {
   inputPrice.min = MATCH_TYPES_TO_PRICE[inputType.value];
   inputPrice.placeholder = MATCH_TYPES_TO_PRICE[inputType.value];
 };
 
-inputType.addEventListener('input', validateType);
+inputType.addEventListener('input', validateTypeHandler);
 
 var inputArrival = document.querySelector('#timein');
 var inputDeparture = document.querySelector('#timeout');
@@ -358,3 +353,7 @@ var departureChangeHandler = function () {
 
 inputArrival.addEventListener('change', arrivalChangeHandler);
 inputDeparture.addEventListener('change', departureChangeHandler);
+
+mapPinMain.addEventListener('mousedown', activatePageHandler);
+mapPinMain.addEventListener('mousedown', setMainPinCoordinateHandler);
+mapPinMain.addEventListener('keydown', activatePageHandler);
