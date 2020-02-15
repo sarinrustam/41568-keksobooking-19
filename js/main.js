@@ -39,17 +39,14 @@ var PIN_MAIN_HEIGTH = 65;
 
 var mapPinsList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-// функция генерации случайнго числа от и до(например от 1 до 23)
 var getRandomNumber = function (from, to) {
   return Math.round(Math.random() * to) + from;
 };
 
-// функция генерирования случайного элемента массива
 var getRandomElement = function (array) {
   return array[getRandomNumber(0, array.length - 1)];
 };
 
-// функция генерирования случайного подмассива
 var generateRandomArray = function (array) {
   var newArray = [];
 
@@ -140,7 +137,6 @@ var renderPinElements = function () {
 
   mapPinsList.appendChild(fragment);
 };
-
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
