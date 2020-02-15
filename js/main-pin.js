@@ -2,7 +2,6 @@
 
 (function () {
   var PIN_MAIN_WIDTH = 65;
-  var PIN_MAIN_HEIGTH = 65;
   var MIN_CLIENT_Y = 130;
   var MAX_CLIENT_Y = 630;
 
@@ -18,7 +17,6 @@
     };
 
     var clientWidth = map.clientWidth;
-    console.log(clientWidth);
 
     var dragged = false;
 
