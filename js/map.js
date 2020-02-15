@@ -37,7 +37,7 @@
 
   setMainPinCoordinateHandler();
 
-  mapPinMain.addEventListener('mousedown', activatePageHandler);
-  mapPinMain.addEventListener('mousedown', setMainPinCoordinateHandler);
+  mapPinMain.addEventListener('mouseup', activatePageHandler);
+  mapPinMain.addEventListener('mouseup', setMainPinCoordinateHandler);
   mapPinMain.addEventListener('keydown', activatePageHandler);
 })();
