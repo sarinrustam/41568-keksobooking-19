@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  var MATCH_TYPES_TO_PRICE = {
-    bungalo: 0,
-    flat: 1000,
-    house: 5000,
-    palace: 10000
+  var MatchPriceToPrice = {
+    BUNGALO: 0,
+    FALT: 1000,
+    HOUSE: 5000,
+    PALACE: 10000
   };
 
   var MATCH_ROOMS_TO_GUESTS = {
@@ -20,6 +20,11 @@
 
   var inputRooms = document.querySelector('#room_number');
   var inputGuests = document.querySelector('#capacity');
+  var inputTitle = document.querySelector('#title');
+  var inputType = document.querySelector('#type');
+  var inputPrice = document.querySelector('#price');
+  var inputArrival = document.querySelector('#timein');
+  var inputDeparture = document.querySelector('#timeout');
 
   var toggleFieldsAvailability = function (disabled) {
     var formFieldset = document.querySelector('.ad-form').children;
@@ -28,8 +33,6 @@
       formFieldset[i].disabled = disabled;
     }
   };
-
-  toggleFieldsAvailability(true);
 
   var validateGuestsHandler = function () {
     var rooms = Number(inputRooms.value);
@@ -48,13 +51,6 @@
     }
   };
 
-  validateGuestsHandler();
-
-  inputRooms.addEventListener('change', validateGuestsHandler);
-  inputGuests.addEventListener('change', validateGuestsHandler);
-
-  var inputTitle = document.querySelector('#title');
-
   var validateTitleHandler = function () {
     if (inputTitle.validity.tooShort) {
       inputTitle.setCustomValidity('Описание должно быть не меннее ' + MIN_TITLE_LENGHT + ' симоволов');
@@ -65,25 +61,10 @@
     }
   };
 
-  inputTitle.addEventListener('input', validateTitleHandler);
-
-  var inputType = document.querySelector('#type');
-  var inputPrice = document.querySelector('#price');
-  inputPrice.addEventListener('input', function () {
-    if (inputPrice.value > MAX_PRICE) {
-      inputPrice.setCustomValidity('Стоимость за ночь не может быть больше ' + MAX_PRICE);
-    }
-  });
-
   var validateTypeHandler = function () {
-    inputPrice.min = MATCH_TYPES_TO_PRICE[inputType.value];
-    inputPrice.placeholder = MATCH_TYPES_TO_PRICE[inputType.value];
+    inputPrice.min = MatchPriceToPrice[inputType.value];
+    inputPrice.placeholder = MatchPriceToPrice[inputType.value];
   };
-
-  inputType.addEventListener('input', validateTypeHandler);
-
-  var inputArrival = document.querySelector('#timein');
-  var inputDeparture = document.querySelector('#timeout');
 
   var arrivalChangeHandler = function () {
     inputDeparture.value = inputArrival.value;
@@ -93,10 +74,25 @@
     inputArrival.value = inputDeparture.value;
   };
 
-  inputArrival.addEventListener('change', arrivalChangeHandler);
-  inputDeparture.addEventListener('change', departureChangeHandler);
+  var init = function () {
+    inputRooms.addEventListener('change', validateGuestsHandler);
+    inputGuests.addEventListener('change', validateGuestsHandler);
+    inputTitle.addEventListener('input', validateTitleHandler);
+    inputPrice.addEventListener('input', function () {
+      if (inputPrice.value > MAX_PRICE) {
+        inputPrice.setCustomValidity('Стоимость за ночь не может быть больше ' + MAX_PRICE);
+      }
+    });
+    inputType.addEventListener('input', validateTypeHandler);
+    inputArrival.addEventListener('change', arrivalChangeHandler);
+    inputDeparture.addEventListener('change', departureChangeHandler);
+
+    toggleFieldsAvailability(true);
+    validateGuestsHandler();
+  };
 
   window.form = {
-    toggleFieldsAvailability: toggleFieldsAvailability
+    toggleFieldsAvailability: toggleFieldsAvailability,
+    init: init
   };
 })();

@@ -7,18 +7,6 @@
   var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var COUNT_ADS = 8;
 
-  var generateRandomArray = function (array) {
-    var newArray = [];
-
-    for (var i = 0; i < array.length; i++) {
-      var item = window.util.getRandomElement(array);
-      if (!newArray.includes(item)) {
-        newArray.push(item);
-      }
-    }
-    return newArray;
-  };
-
   var clientX = document.querySelector('.map__overlay').clientWidth;
 
   var getRandomClientX = function () {
@@ -42,9 +30,9 @@
         'guests': 2,
         'checkin': window.util.getRandomElement(TIMES),
         'checkout': window.util.getRandomElement(TIMES),
-        'features': generateRandomArray(FEATURES),
+        'features': window.util.generateRandomArray(FEATURES),
         'description': 'Located beside Victory Square',
-        'photos': generateRandomArray(PHOTOS)
+        'photos': window.util.generateRandomArray(PHOTOS)
       },
       location: {
         'x': locationX,
@@ -62,8 +50,9 @@
 
     return ads;
   };
+
   window.data = {
-    ads: generateAds()
+    ads: generateAds
   };
 })();
 

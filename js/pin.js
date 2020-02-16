@@ -31,7 +31,7 @@
     return pinElement;
   };
 
-  var renderPinElements = function (ads) {
+  var render = function (ads) {
     var fragment = document.createDocumentFragment();
 
     for (var j = 0; j < ads.length; j++) {
@@ -42,6 +42,6 @@
   };
 
   window.pin = {
-    render: renderPinElements
+    render: render
   };
 })();

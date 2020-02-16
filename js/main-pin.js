@@ -7,8 +7,7 @@
 
   var map = document.querySelector('.map');
   var mapPinMain = map.querySelector('.map__pin--main');
-
-  mapPinMain.addEventListener('mousedown', function (evt) {
+  var mapPinMainHandler = function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -67,5 +66,13 @@
 
     document.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseup', mouseUpHandler);
-  });
+  };
+
+  var init = function () {
+    mapPinMain.addEventListener('mousedown', mapPinMainHandler);
+  };
+
+  window.mainPin = {
+    init: init
+  };
 })();

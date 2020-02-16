@@ -7,13 +7,14 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapSection = document.querySelector('.map');
+  var ads = window.data.ads();
 
   var activatePageHandler = function (evt) {
     if (evt.button === window.util.BUTTONS.LMB || evt.key === window.util.BUTTONS.ENT) {
       mapSection.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       window.form.toggleFieldsAvailability(false);
-      window.pin.render(window.data.ads);
+      window.pin.render(ads);
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
     }
@@ -22,12 +23,11 @@
   var getMainPinCoordinate = function () {
     var pinMainLeft = parseInt(mapPinMain.style.left, 10);
     var pinMainTop = parseInt(mapPinMain.style.top, 10);
+    var mapFadded = mapSection.classList.contains('map--fadded');
 
-    if (mapSection.classList.contains('map--fadded')) {
-      return Math.round(pinMainLeft + PIN_MAIN_WIDTH / 2) + ', ' + Math.round(pinMainTop + PIN_MAIN_HEIGTH / 2);
-    }
+    var pinY = mapFadded ? pinMainTop + PIN_MAIN_HEIGTH / 2 : pinMainTop + PIN_MAIN_HEIGTH;
 
-    return Math.round(pinMainLeft + PIN_MAIN_WIDTH / 2) + ', ' + Math.round(pinMainTop + PIN_MAIN_HEIGTH);
+    return Math.round(pinMainLeft + PIN_MAIN_WIDTH / 2) + ', ' + Math.round(pinY);
   };
 
   var setMainPinCoordinateHandler = function () {
@@ -35,9 +35,17 @@
     inputAddress.value = getMainPinCoordinate();
   };
 
-  setMainPinCoordinateHandler();
+  var init = function () {
+    mapPinMain.addEventListener('mouseup', activatePageHandler);
+    mapPinMain.addEventListener('mouseup', setMainPinCoordinateHandler);
+    mapPinMain.addEventListener('keydown', activatePageHandler);
 
-  mapPinMain.addEventListener('mouseup', activatePageHandler);
-  mapPinMain.addEventListener('mouseup', setMainPinCoordinateHandler);
-  mapPinMain.addEventListener('keydown', activatePageHandler);
+    setMainPinCoordinateHandler();
+    window.mainPin.init();
+  };
+
+  window.map = {
+    init: init
+  };
+
 })();
