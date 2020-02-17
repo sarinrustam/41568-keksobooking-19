@@ -41,7 +41,7 @@
     };
   };
 
-  var generateAds = function () {
+  var generate = function () {
     var ads = [];
 
     for (var i = 0; i < COUNT_ADS; i++) {
@@ -52,7 +52,7 @@
   };
 
   window.data = {
-    ads: generateAds
+    generate: generate
   };
 })();
 

@@ -3,7 +3,7 @@
 (function () {
   var MatchPriceToPrice = {
     BUNGALO: 0,
-    FALT: 1000,
+    FLAT: 1000,
     HOUSE: 5000,
     PALACE: 10000
   };
@@ -17,6 +17,7 @@
   var MIN_TITLE_LENGHT = 30;
   var MAX_TITLE_LENGHT = 100;
   var MAX_PRICE = 1000000;
+  var NUMBER_SYSTEM = 10;
 
   var inputRooms = document.querySelector('#room_number');
   var inputGuests = document.querySelector('#capacity');
@@ -29,14 +30,12 @@
   var toggleFieldsAvailability = function (disabled) {
     var formFieldset = document.querySelector('.ad-form').children;
 
-    for (var i = 0; i < formFieldset.length; i++) {
-      formFieldset[i].disabled = disabled;
-    }
+    window.util.disableElements(formFieldset, disabled);
   };
 
   var validateGuestsHandler = function () {
-    var rooms = Number(inputRooms.value);
-    var guests = Number(inputGuests.value);
+    var rooms = parseInt(inputRooms.value, NUMBER_SYSTEM);
+    var guests = parseInt(inputGuests.value, NUMBER_SYSTEM);
 
     if (rooms === 1 && !MATCH_ROOMS_TO_GUESTS[rooms].includes(guests)) {
       inputGuests.setCustomValidity('1 комната — «для 1 гостя»');
@@ -62,8 +61,8 @@
   };
 
   var validateTypeHandler = function () {
-    inputPrice.min = MatchPriceToPrice[inputType.value];
-    inputPrice.placeholder = MatchPriceToPrice[inputType.value];
+    inputPrice.min = MatchPriceToPrice[inputType.value.toUpperCase()];
+    inputPrice.placeholder = MatchPriceToPrice[inputType.value.toUpperCase()];
   };
 
   var arrivalChangeHandler = function () {

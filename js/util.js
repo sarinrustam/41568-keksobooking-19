@@ -18,14 +18,25 @@
     return newArray;
   };
 
+  var getRandomNumber = function (from, to) {
+    return Math.round(Math.random() * to) + from;
+  };
+
+  var getRandomElement = function (array) {
+    return array[window.util.getRandomNumber(0, array.length - 1)];
+  };
+
+  var disableElements = function (arrElements, disabled) {
+    for (var i = 0; i < arrElements.length; i++) {
+      arrElements[i].disabled = disabled;
+    }
+  };
+
   window.util = {
     BUTTONS: Buttons,
-    getRandomNumber: function (from, to) {
-      return Math.round(Math.random() * to) + from;
-    },
-    getRandomElement: function (array) {
-      return array[window.util.getRandomNumber(0, array.length - 1)];
-    },
-    generateRandomArray: generateRandomArray
+    getRandomNumber: getRandomNumber,
+    getRandomElement: getRandomElement,
+    generateRandomArray: generateRandomArray,
+    disableElements: disableElements
   };
 })();

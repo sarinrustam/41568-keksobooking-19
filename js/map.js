@@ -7,7 +7,7 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapSection = document.querySelector('.map');
-  var ads = window.data.ads();
+  var ads = window.data.generate();
 
   var activatePageHandler = function (evt) {
     if (evt.button === window.util.BUTTONS.LMB || evt.key === window.util.BUTTONS.ENT) {
