@@ -7,16 +7,31 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapSection = document.querySelector('.map');
-  var ads = window.data.generate();
 
   var activatePageHandler = function (evt) {
     if (evt.button === window.util.BUTTONS.LMB || evt.key === window.util.BUTTONS.ENT) {
+      var successHandler = function (response) {
+        window.pin.render(response);
+      };
+
+      var errorHandler = function (errorMessage) {
+        var node = document.createElement('div');
+        node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+        node.style.position = 'absolute';
+        node.style.left = 0;
+        node.style.right = 0;
+        node.style.fontSize = '30px';
+
+        node.textContent = errorMessage;
+        document.body.insertAdjacentElement('afterbegin', node);
+      };
+
       mapSection.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       window.form.toggleFieldsAvailability(false);
-      window.pin.render(ads);
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
+      window.upload.load(successHandler, errorHandler);
     }
   };
 
