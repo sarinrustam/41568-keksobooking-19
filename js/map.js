@@ -15,7 +15,7 @@
       };
 
       var errorHandler = function (errorMessage) {
-        window.util.showMessage(errorMessage, 'tomato');
+        window.util.showMessage(errorMessage);
       };
 
       mapSection.classList.remove('map--faded');
