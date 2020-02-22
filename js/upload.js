@@ -34,10 +34,10 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      try {
+      if (xhr.status === STATUS_200) {
         successHandler(xhr.response);
-      } catch (err) {
-        errorHandler('Произошла ошибка');
+      } else {
+        errorHandler('Error: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 

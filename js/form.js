@@ -94,10 +94,11 @@
         form.classList.add('ad-form--disabled');
         window.map.deactivate();
         form.reset();
+        window.util.renderMessageSuccess();
       };
 
-      var errorFormHandler = function (error) {
-        window.util.showMessage(error, 'red');
+      var errorFormHandler = function () {
+        window.util.renderMessageError();
       };
 
       window.upload.save(new FormData(form), saveFormHandler, errorFormHandler);
@@ -107,8 +108,6 @@
 
     toggleFieldsAvailability(true);
     validateGuestsHandler();
-
-
   };
 
   window.form = {
