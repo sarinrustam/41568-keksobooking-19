@@ -2,6 +2,7 @@
 
 (function () {
   var URL = 'https://js.dump.academy/keksobooking/data';
+  var SAVE_URL = 'https://js.dump.academy/keksobooking';
 
   var load = function (successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
@@ -24,7 +25,29 @@
     xhr.send();
   };
 
+  var save = function (data, successHandler, errorHandler) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.responseType = 'json';
+
+    xhr.addEventListener('load', function () {
+      try {
+        successHandler(xhr.response);
+      } catch (err) {
+        errorHandler('Произошла ошибка');
+      }
+    });
+
+    xhr.addEventListener('error', function () {
+      errorHandler('Произошла ошибка соединения');
+    });
+
+    xhr.open('POST', SAVE_URL);
+    xhr.send(data);
+  };
+
   window.upload = {
-    load: load
+    load: load,
+    save: save
   };
 }());

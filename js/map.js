@@ -27,6 +27,16 @@
     }
   };
 
+  var deactivatePage = function () {
+    mapSection.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    window.form.toggleFieldsAvailability(true);
+    mapPinMain.addEventListener('mousedown', activatePageHandler);
+    mapPinMain.addEventListener('keydown', activatePageHandler);
+    window.pin.remove();
+    window.mainPin.reset();
+  };
+
   var getMainPinCoordinate = function () {
     var pinMainLeft = parseInt(mapPinMain.style.left, 10);
     var pinMainTop = parseInt(mapPinMain.style.top, 10);
@@ -52,7 +62,8 @@
   };
 
   window.map = {
-    init: init
+    init: init,
+    deactivate: deactivatePage
   };
 
 })();
