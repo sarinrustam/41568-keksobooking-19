@@ -32,11 +32,19 @@
     }
   };
 
+  var showMessage = function (text) {
+    var node = document.createElement('div');
+    node.classList.add('error__message');
+    node.textContent = text;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   window.util = {
     BUTTONS: Buttons,
     getRandomNumber: getRandomNumber,
     getRandomElement: getRandomElement,
     generateRandomArray: generateRandomArray,
-    disableElements: disableElements
+    disableElements: disableElements,
+    showMessage: showMessage
   };
 })();
