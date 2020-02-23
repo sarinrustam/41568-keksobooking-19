@@ -74,6 +74,11 @@
     inputArrival.value = inputDeparture.value;
   };
 
+  var deactivate = function () {
+    form.classList.add('ad-form--disabled');
+    form.reset();
+  };
+
   var init = function () {
     inputRooms.addEventListener('change', validateGuestsHandler);
     inputGuests.addEventListener('change', validateGuestsHandler);
@@ -91,14 +96,13 @@
       evt.preventDefault();
 
       var saveFormHandler = function () {
-        form.classList.add('ad-form--disabled');
+        deactivate();
         window.map.deactivate();
-        form.reset();
-        window.util.renderMessageSuccess();
+        window.util.renderMessage(window.util.MESSAGE_TYPE.SUCCESS);
       };
 
       var errorFormHandler = function () {
-        window.util.renderMessageError();
+        window.util.renderMessage(window.util.MESSAGE_TYPE.ERROR);
       };
 
       window.upload.save(new FormData(form), saveFormHandler, errorFormHandler);
