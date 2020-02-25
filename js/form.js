@@ -98,11 +98,11 @@
       var saveFormHandler = function () {
         deactivate();
         window.map.deactivate();
-        window.util.renderMessage(window.util.MESSAGE_TYPE.SUCCESS);
+        window.message.show(window.util.MESSAGE_TYPE.SUCCESS);
       };
 
       var errorFormHandler = function () {
-        window.util.renderMessage(window.util.MESSAGE_TYPE.ERROR);
+        window.message.show(window.util.MESSAGE_TYPE.ERROR);
       };
 
       window.upload.save(new FormData(form), saveFormHandler, errorFormHandler);

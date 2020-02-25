@@ -11,9 +11,6 @@
     ERROR: 'error'
   };
 
-  var messageTemplateSuccess = document.querySelector('#success').content.querySelector('.success');
-  var messageTemplateError = document.querySelector('#error').content.querySelector('.error');
-
   var generateRandomArray = function (array) {
     var newArray = [];
 
@@ -47,38 +44,6 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var renderMessage = function (messageType) {
-    var messageTemplate = messageType === MessageType.SUCCESS ? messageTemplateSuccess : messageTemplateError;
-    var messageElement = messageTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-    var errorButton = messageElement.querySelector('.error__button');
-
-    var messageClickHandler = function () {
-      main.removeChild(messageElement);
-      if (errorButton) {
-        errorButton.removeEventListener('click', messageClickHandler);
-      }
-
-      document.removeEventListener('click', messageClickHandler);
-      document.removeEventListener('keydown', messageKeydownHandler);
-    };
-
-    var messageKeydownHandler = function (evt) {
-      if (evt.key === window.util.BUTTONS.ESC) {
-        messageClickHandler();
-      }
-    };
-
-    document.addEventListener('click', messageClickHandler);
-    document.addEventListener('keydown', messageKeydownHandler);
-
-    if (errorButton) {
-      errorButton.removeEventListener('click', messageClickHandler);
-    }
-
-    main.appendChild(messageElement);
-  };
-
   window.util = {
     BUTTONS: Buttons,
     getRandomNumber: getRandomNumber,
@@ -87,6 +52,5 @@
     disableElements: disableElements,
     showMessage: showMessage,
     MESSAGE_TYPE: MessageType,
-    renderMessage: renderMessage
   };
 })();
