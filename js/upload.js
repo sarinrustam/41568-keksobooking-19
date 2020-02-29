@@ -15,6 +15,7 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === STATUS_OK) {
         successHandler(xhr.response);
+        console.log(xhr.response);
       } else {
         errorHandler('Error: ' + xhr.status + ' ' + xhr.statusText);
       }
