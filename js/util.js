@@ -6,11 +6,6 @@
     ESC: 'Escape'
   };
 
-  var MessageType = {
-    SUCCESS: 'success',
-    ERROR: 'error'
-  };
-
   var generateRandomArray = function (array) {
     var newArray = [];
 
@@ -50,7 +45,6 @@
     getRandomElement: getRandomElement,
     generateRandomArray: generateRandomArray,
     disableElements: disableElements,
-    showMessage: showMessage,
-    MESSAGE_TYPE: MessageType,
+    showMessage: showMessage
   };
 })();

@@ -1,50 +1,56 @@
 'use strict';
 
 (function () {
-  var messageTemplateSuccess = document.querySelector('#success').content.querySelector('.success');
-  var messageElementSuccess = messageTemplateSuccess.cloneNode(true);
-  var messageTemplateError = document.querySelector('#error').content.querySelector('.error');
-  var messageElementError = messageTemplateError.cloneNode(true);
+  var Types = {
+    SUCCESS: 'success',
+    ERROR: 'error'
+  };
+
+  var templateSuccess = document.querySelector('#success').content.querySelector('.success');
+  var elementSuccess = templateSuccess.cloneNode(true);
+  var templateError = document.querySelector('#error').content.querySelector('.error');
+  var elementError = templateError.cloneNode(true);
 
 
-  var renderMessage = function (messageType) {
-    var messageElement = messageType === window.util.MESSAGE_TYPE.SUCCESS ? messageElementSuccess : messageElementError;
+  var render = function (type) {
+    var element = type === Types.SUCCESS ? elementSuccess : elementError;
     var main = document.querySelector('main');
-    var errorButton = messageElement.querySelector('.error__button');
+    var errorButton = element.querySelector('.error__button');
 
-    var messageClickHandler = function () {
-      hideMessage(messageType);
+    var clickHandler = function () {
+      hide(type);
     };
 
-    var messageKeydownHandler = function (evt) {
+    var keydownHandler = function (evt) {
       if (evt.key === window.util.BUTTONS.ESC) {
-        messageClickHandler();
+        clickHandler();
       }
     };
 
-    document.addEventListener('click', messageClickHandler);
-    document.addEventListener('keydown', messageKeydownHandler);
+    document.addEventListener('click', clickHandler);
+    document.addEventListener('keydown', keydownHandler);
 
     if (errorButton) {
-      errorButton.addEventListener('click', messageClickHandler);
+      errorButton.addEventListener('click', clickHandler);
     }
 
-    messageElement.classList.add('hidden');
-    main.appendChild(messageElement);
+    element.classList.add('hidden');
+    main.appendChild(element);
   };
 
-  var showMessage = function (messageType) {
-    var messageElement = messageType === window.util.MESSAGE_TYPE.SUCCESS ? messageElementSuccess : messageElementError;
-    messageElement.classList.remove('hidden');
+  var show = function (type) {
+    var element = type === Types.SUCCESS ? elementSuccess : elementError;
+    element.classList.remove('hidden');
   };
 
-  var hideMessage = function (messageType) {
-    var messageElement = messageType === window.util.MESSAGE_TYPE.SUCCESS ? messageElementSuccess : messageElementError;
-    messageElement.classList.add('hidden');
+  var hide = function (type) {
+    var element = type === Types.SUCCESS ? elementSuccess : elementError;
+    element.classList.add('hidden');
   };
 
   window.message = {
-    init: renderMessage,
-    show: showMessage
+    init: render,
+    show: show,
+    TYPES: Types,
   };
 }());

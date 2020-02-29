@@ -3,6 +3,6 @@
 (function () {
   window.map.init();
   window.form.init();
-  window.message.init(window.util.MESSAGE_TYPE.SUCCESS);
-  window.message.init(window.util.MESSAGE_TYPE.ERROR);
+  window.message.init(window.message.TYPES.SUCCESS);
+  window.message.init(window.message.TYPES.ERROR);
 })();
