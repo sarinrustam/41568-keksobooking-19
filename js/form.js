@@ -26,6 +26,7 @@
   var inputPrice = document.querySelector('#price');
   var inputArrival = document.querySelector('#timein');
   var inputDeparture = document.querySelector('#timeout');
+  var form = document.querySelector('.ad-form');
 
   var toggleFieldsAvailability = function (disabled) {
     var formFieldset = document.querySelector('.ad-form').children;
@@ -73,6 +74,11 @@
     inputArrival.value = inputDeparture.value;
   };
 
+  var deactivate = function () {
+    form.classList.add('ad-form--disabled');
+    form.reset();
+  };
+
   var init = function () {
     inputRooms.addEventListener('change', validateGuestsHandler);
     inputGuests.addEventListener('change', validateGuestsHandler);
@@ -85,6 +91,24 @@
     inputType.addEventListener('input', validateTypeHandler);
     inputArrival.addEventListener('change', arrivalChangeHandler);
     inputDeparture.addEventListener('change', departureChangeHandler);
+
+    var submitFormHandler = function (evt) {
+      evt.preventDefault();
+
+      var saveFormHandler = function () {
+        deactivate();
+        window.map.deactivate();
+        window.message.show(window.message.TYPES.SUCCESS);
+      };
+
+      var errorFormHandler = function () {
+        window.message.show(window.message.TYPES.ERROR);
+      };
+
+      window.upload.save(new FormData(form), saveFormHandler, errorFormHandler);
+    };
+
+    form.addEventListener('submit', submitFormHandler);
 
     toggleFieldsAvailability(true);
     validateGuestsHandler();

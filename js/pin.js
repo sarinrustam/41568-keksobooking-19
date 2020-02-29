@@ -41,7 +41,17 @@
     mapPinsList.appendChild(fragment);
   };
 
+  var remove = function () {
+    var pins = mapPinsList.querySelectorAll('.map__pin');
+    for (var i = 0; i < pins.length; i++) {
+      if (!pins[i].classList.contains('map__pin--main')) {
+        mapPinsList.removeChild(pins[i]);
+      }
+    }
+  };
+
   window.pin = {
-    render: render
+    render: render,
+    remove: remove
   };
 })();

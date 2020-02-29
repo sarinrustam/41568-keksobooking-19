@@ -7,6 +7,9 @@
 
   var map = document.querySelector('.map');
   var mapPinMain = map.querySelector('.map__pin--main');
+  var MAIN_PIN_Y = parseInt(mapPinMain.style.top, 10);
+  var MAIN_PIN_X = parseInt(mapPinMain.style.left, 10);
+
   var mapPinMainHandler = function (evt) {
     evt.preventDefault();
 
@@ -72,7 +75,13 @@
     mapPinMain.addEventListener('mousedown', mapPinMainHandler);
   };
 
+  var reset = function () {
+    mapPinMain.style.top = MAIN_PIN_Y + 'px';
+    mapPinMain.style.left = MAIN_PIN_X + 'px';
+  };
+
   window.mainPin = {
-    init: init
+    init: init,
+    reset: reset
   };
 })();
