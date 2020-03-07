@@ -32,7 +32,7 @@
     return pinElement;
   };
 
-  var remove = function () {
+  var removeAll = function () {
     var pins = mapPinsList.querySelectorAll('.map__pin');
     for (var i = 0; i < pins.length; i++) {
       if (!pins[i].classList.contains('map__pin--main')) {
@@ -42,9 +42,9 @@
   };
 
   var render = function (ads) {
-    var firstFive = ads.length > ADS_COUNT ? ADS_COUNT : ads.length;
+    var firstFive = ads.length >= ADS_COUNT ? ADS_COUNT : ads.length;
     var fragment = document.createDocumentFragment();
-    remove();
+    removeAll();
 
     for (var j = 0; j < firstFive; j++) {
       fragment.appendChild(renderPinElement(ads[j]));
@@ -55,6 +55,6 @@
 
   window.pin = {
     render: render,
-    remove: remove
+    remove: removeAll
   };
 })();

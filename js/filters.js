@@ -2,12 +2,12 @@
 
 (function () {
   var form = document.querySelector('.map__filters');
-  var type = form.querySelector('#housing-type');
-  var price = form.querySelector('#housing-price');
-  var rooms = form.querySelector('#housing-rooms');
-  var guests = form.querySelector('#housing-guests');
+  var housingType = form.querySelector('#housing-type');
+  var housingPrice = form.querySelector('#housing-price');
+  var housingRooms = form.querySelector('#housing-rooms');
+  var housingGuests = form.querySelector('#housing-guests');
   var features = form.querySelector('.map__features');
-  var featuresInputs = features.querySelectorAll('.map__checkbox');
+  var housingFeaturesInputs = features.querySelectorAll('.map__checkbox');
   var featuresValues = [];
 
   var PriceFilters = {
@@ -63,11 +63,11 @@
   };
 
   var init = function () {
-    type.addEventListener('change', typeChangeHandler);
-    price.addEventListener('change', priceChangeHandler);
-    rooms.addEventListener('change', roomsChangeHandler);
-    guests.addEventListener('change', guestsChangeHandler);
-    featuresInputs.forEach(function (item) {
+    housingType.addEventListener('change', typeChangeHandler);
+    housingPrice.addEventListener('change', priceChangeHandler);
+    housingRooms.addEventListener('change', roomsChangeHandler);
+    housingGuests.addEventListener('change', guestsChangeHandler);
+    housingFeaturesInputs.forEach(function (item) {
       item.addEventListener('change', inputChangeHandler);
     });
   };
