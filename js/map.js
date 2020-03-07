@@ -7,11 +7,32 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapSection = document.querySelector('.map');
+  var pinsData = [];
+  var typeFilter;
+
+  var updatePins = function () {
+    var updatedPinsData = pinsData.filter(function (item) {
+      if (!typeFilter || typeFilter === window.filters.TYPE_ANY) {
+        return true;
+      }
+      return item.offer.type === typeFilter;
+    });
+
+    window.pin.render(updatedPinsData);
+  };
+
+  window.filters.typeChangeHandler = function (type) {
+    typeFilter = type;
+    window.card.remove();
+    updatePins();
+  };
 
   var activatePageHandler = function (evt) {
     if (evt.button === window.util.BUTTONS.LMB || evt.key === window.util.BUTTONS.ENT) {
       var successHandler = function (response) {
-        window.pin.render(response);
+        pinsData = response;
+        updatePins();
+        window.filters.init();
       };
 
       var errorHandler = function (errorMessage) {

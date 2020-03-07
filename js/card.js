@@ -9,13 +9,13 @@
   };
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  var renderTitle = function (cardElement, card) {
-    var cardElementTitle = cardElement.querySelector('.popup__title');
+  var renderTitle = function (element, card) {
+    var cardElementTitle = element.querySelector('.popup__title');
     cardElementTitle.textContent = card.offer.title;
   };
 
-  var renderAddress = function (cardElement, card) {
-    var cardElementAdress = cardElement.querySelector('.popup__text--address');
+  var renderAddress = function (element, card) {
+    var cardElementAdress = element.querySelector('.popup__text--address');
     if (card.offer.address) {
       cardElementAdress.textContent = card.offer.address;
     } else {
@@ -23,8 +23,8 @@
     }
   };
 
-  var renderPrice = function (cardElement, card) {
-    var cardElementPrice = cardElement.querySelector('.popup__text--price');
+  var renderPrice = function (element, card) {
+    var cardElementPrice = element.querySelector('.popup__text--price');
     if (card.offer.price) {
       cardElementPrice.textContent = card.offer.price + ' ₽/ночь';
     } else {
@@ -32,8 +32,8 @@
     }
   };
 
-  var renderType = function (cardElement, card) {
-    var cardElementType = cardElement.querySelector('.popup__type');
+  var renderType = function (element, card) {
+    var cardElementType = element.querySelector('.popup__type');
     if (card.offer.type) {
       cardElementType.textContent = TypesTranslate[card.offer.type];
     } else {
@@ -41,8 +41,8 @@
     }
   };
 
-  var renderCapacity = function (cardElement, card) {
-    var cardElementCapacity = cardElement.querySelector('.popup__text--capacity');
+  var renderCapacity = function (element, card) {
+    var cardElementCapacity = element.querySelector('.popup__text--capacity');
     if (card.offer.rooms && card.offer.guests) {
       cardElementCapacity.textContent = card.offer.rooms + ' комнаты' + ' для ' + card.offer.guests + ' гостей';
     } else {
@@ -50,8 +50,8 @@
     }
   };
 
-  var renderTime = function (cardElement, card) {
-    var cardElementTime = cardElement.querySelector('.popup__text--time');
+  var renderTime = function (element, card) {
+    var cardElementTime = element.querySelector('.popup__text--time');
     if (card.offer.checkin && card.offer.checkout) {
       cardElementTime.textContent = 'Заезд после ' + card.offer.checkin + ' выезд до ' + card.offer.checkout;
     } else {
@@ -59,8 +59,8 @@
     }
   };
 
-  var renderFeatures = function (cardElement, card) {
-    var cardElementFeatures = cardElement.querySelector('.popup__features');
+  var renderFeatures = function (element, card) {
+    var cardElementFeatures = element.querySelector('.popup__features');
     if (card.offer.features.length) {
       cardElementFeatures.textContent = card.offer.features;
     } else {
@@ -68,8 +68,8 @@
     }
   };
 
-  var renderDescription = function (cardElement, card) {
-    var cardElementDescription = cardElement.querySelector('.popup__description');
+  var renderDescription = function (element, card) {
+    var cardElementDescription = element.querySelector('.popup__description');
     if (card.offer.description) {
       cardElementDescription.textContent = card.offer.description;
     } else {
@@ -77,10 +77,10 @@
     }
   };
 
-  var renderPhotos = function (cardElement, card) {
-    var cardElementPhotos = cardElement.querySelector('.popup__photos');
+  var renderPhotos = function (element, card) {
+    var cardElementPhotos = element.querySelector('.popup__photos');
     if (card.offer.photos.length) {
-      var photoTemplate = cardElement.querySelector('.popup__photo');
+      var photoTemplate = element.querySelector('.popup__photo');
       var photoFragment = document.createDocumentFragment();
       photoTemplate.src = card.offer.photos[0];
 
@@ -96,9 +96,17 @@
     }
   };
 
-  var renderAvatar = function (cardElement, card) {
-    var cardElementAvatar = cardElement.querySelector('.popup__avatar');
+  var renderAvatar = function (element, card) {
+    var cardElementAvatar = element.querySelector('.popup__avatar');
     cardElementAvatar.src = card.author.avatar;
+  };
+
+  var remove = function () {
+    var element = document.querySelector('.map__card');
+
+    if (element) {
+      element.parentNode.removeChild(element);
+    }
   };
 
   var renderCard = function (card) {
@@ -138,6 +146,7 @@
   };
 
   window.card = {
-    render: renderCard
+    render: renderCard,
+    remove: remove
   };
 })();
