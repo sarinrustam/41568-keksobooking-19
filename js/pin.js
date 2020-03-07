@@ -43,6 +43,7 @@
 
   var render = function (ads) {
     var count = ads.length >= adsCount ? adsCount : ads.length;
+    var firstFive = ads.length >= ADS_COUNT ? ADS_COUNT : ads.length;
     var fragment = document.createDocumentFragment();
     removeAll();
 
