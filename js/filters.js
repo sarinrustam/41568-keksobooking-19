@@ -3,11 +3,7 @@
 (function () {
   var form = document.querySelector('.map__filters');
   var housingType = form.querySelector('#housing-type');
-
-  window.filters = {
-    typeChangeHandler: function () {},
-    TYPE_ANY: 'any'
-  };
+  var TYPE_ANY = 'any';
 
   var typeChangeHandler = function (evt) {
     var value = evt.target.value;
@@ -18,5 +14,9 @@
     housingType.addEventListener('change', typeChangeHandler);
   };
 
-  window.filters.init = init;
+  window.filters = {
+    typeChangeHandler: function () {},
+    TYPE_ANY: TYPE_ANY,
+    init: init
+  };
 }());

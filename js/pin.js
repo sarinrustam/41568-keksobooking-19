@@ -42,11 +42,11 @@
   };
 
   var render = function (ads) {
-    var firstFive = ads.length >= ADS_COUNT ? ADS_COUNT : ads.length;
+    var count = ads.length >= ADS_COUNT ? ADS_COUNT : ads.length;
     var fragment = document.createDocumentFragment();
     removeAll();
 
-    for (var j = 0; j < firstFive; j++) {
+    for (var j = 0; j < count; j++) {
       fragment.appendChild(renderPinElement(ads[j]));
     }
 
