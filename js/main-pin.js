@@ -7,8 +7,8 @@
 
   var map = document.querySelector('.map');
   var mapPinMain = map.querySelector('.map__pin--main');
-  var MAIN_PIN_Y = parseInt(mapPinMain.style.top, 10);
-  var MAIN_PIN_X = parseInt(mapPinMain.style.left, 10);
+  var MAIN_PIN_Y = parseInt(mapPinMain.style.top, window.util.NUMBER_SYSTEM);
+  var MAIN_PIN_X = parseInt(mapPinMain.style.left, window.util.NUMBER_SYSTEM);
 
   var mapPinMainHandler = function (evt) {
     evt.preventDefault();

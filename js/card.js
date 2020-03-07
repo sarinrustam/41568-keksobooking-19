@@ -62,7 +62,10 @@
   var renderFeatures = function (element, card) {
     var cardElementFeatures = element.querySelector('.popup__features');
     if (card.offer.features.length) {
-      cardElementFeatures.textContent = card.offer.features;
+      var li = document.createElement('li');
+      li.classList.add('popup__feature');
+      li.classList.add('popup__feature--' + card.offer.features);
+      cardElementFeatures.appendChild(li);
     } else {
       cardElementFeatures.classList.add('hidden');
     }

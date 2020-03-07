@@ -17,7 +17,6 @@
   var MIN_TITLE_LENGHT = 30;
   var MAX_TITLE_LENGHT = 100;
   var MAX_PRICE = 1000000;
-  var NUMBER_SYSTEM = 10;
 
   var inputRooms = document.querySelector('#room_number');
   var inputGuests = document.querySelector('#capacity');
@@ -35,8 +34,8 @@
   };
 
   var validateGuestsHandler = function () {
-    var rooms = parseInt(inputRooms.value, NUMBER_SYSTEM);
-    var guests = parseInt(inputGuests.value, NUMBER_SYSTEM);
+    var rooms = parseInt(inputRooms.value, window.util.NUMBER_SYSTEM);
+    var guests = parseInt(inputGuests.value, window.util.NUMBER_SYSTEM);
 
     if (rooms === 1 && !MATCH_ROOMS_TO_GUESTS[rooms].includes(guests)) {
       inputGuests.setCustomValidity('1 комната — «для 1 гостя»');

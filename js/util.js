@@ -5,6 +5,7 @@
     ENT: 'Enter',
     ESC: 'Escape'
   };
+  var NUMBER_SYSTEM = 10;
 
   var generateRandomArray = function (array) {
     var newArray = [];
@@ -45,6 +46,7 @@
     getRandomElement: getRandomElement,
     generateRandomArray: generateRandomArray,
     disableElements: disableElements,
-    showMessage: showMessage
+    showMessage: showMessage,
+    NUMBER_SYSTEM: NUMBER_SYSTEM
   };
 })();
