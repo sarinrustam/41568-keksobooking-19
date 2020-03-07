@@ -62,10 +62,13 @@
   var renderFeatures = function (element, card) {
     var cardElementFeatures = element.querySelector('.popup__features');
     if (card.offer.features.length) {
-      var li = document.createElement('li');
-      li.classList.add('popup__feature');
-      li.classList.add('popup__feature--' + card.offer.features);
-      cardElementFeatures.appendChild(li);
+      cardElementFeatures.innerHTML = '';
+      card.offer.features.forEach(function (item) {
+        var li = document.createElement('li');
+        li.classList.add('popup__feature');
+        li.classList.add('popup__feature--' + item);
+        cardElementFeatures.appendChild(li);
+      });
     } else {
       cardElementFeatures.classList.add('hidden');
     }

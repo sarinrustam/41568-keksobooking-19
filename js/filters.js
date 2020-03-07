@@ -9,6 +9,7 @@
   var features = form.querySelector('.map__features');
   var housingFeaturesInputs = features.querySelectorAll('.map__checkbox');
   var featuresValues = [];
+  var TYPE_ANY = 'any';
 
   var PriceFilters = {
     LOW: 0,
@@ -19,17 +20,6 @@
     LOW: 'low',
     MIDDLE: 'middle',
     HIGH: 'high'
-  };
-
-  window.filters = {
-    typeChangeHandler: function () {},
-    priceChangeHandler: function () {},
-    roomsChangeHandler: function () {},
-    guestsChangeHandler: function () {},
-    inputChangeHandler: function () {},
-    TYPE_ANY: 'any',
-    PRICE: PriceFilters,
-    PRICE_NAMES: PriceFilterNames
   };
 
   var typeChangeHandler = function (evt) {
@@ -72,5 +62,15 @@
     });
   };
 
-  window.filters.init = init;
+  window.filters = {
+    typeChangeHandler: function () {},
+    priceChangeHandler: function () {},
+    roomsChangeHandler: function () {},
+    guestsChangeHandler: function () {},
+    inputChangeHandler: function () {},
+    TYPE_ANY: TYPE_ANY,
+    PRICE: PriceFilters,
+    PRICE_NAMES: PriceFilterNames,
+    init: init
+  };
 }());

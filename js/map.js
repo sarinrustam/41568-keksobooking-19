@@ -14,85 +14,103 @@
   var guestsFilter;
   var featuresFilter;
 
-  var getFilterPrice = function (price) {
+  var getFilterPrice = function (item) {
     var filter;
-    if (price > window.filters.PRICE.LOW) {
+    if (item.offer.price > window.filters.PRICE.LOW) {
       filter = window.filters.PRICE_NAMES.LOW;
     }
-    if (price > window.filters.PRICE.MIDDLE) {
+    if (item.offer.price > window.filters.PRICE.MIDDLE) {
       filter = window.filters.PRICE_NAMES.MIDDLE;
     }
-    if (price > window.filters.PRICE.HIGH) {
+    if (item.offer.price > window.filters.PRICE.HIGH) {
       filter = window.filters.PRICE_NAMES.HIGH;
     }
-    return filter;
+
+    if (priceFilter) {
+      if (priceFilter !== filter && priceFilter !== window.filters.TYPE_ANY) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  var getFilterType = function (item) {
+    if (typeFilter) {
+      if (typeFilter !== item.offer.type && typeFilter !== window.filters.TYPE_ANY) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  var getFilterRooms = function (item) {
+    if (roomsFilter) {
+      if (roomsFilter !== item.offer.rooms.toString() && roomsFilter !== window.filters.TYPE_ANY) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  var getFilterGuests = function (item) {
+    if (guestsFilter) {
+      if (guestsFilter !== item.offer.guests.toString() && guestsFilter !== window.filters.TYPE_ANY) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  var getFilterFeatures = function (item) {
+    if (featuresFilter && featuresFilter.length) {
+      var exist = featuresFilter.every(function (element) {
+        return item.offer.features.includes(element);
+      });
+
+      if (!exist) {
+        return false;
+      }
+    }
+    return true;
   };
 
   var updatePins = function () {
     var updatedPinsData = pinsData.filter(function (item) {
-      if (typeFilter) {
-        if (typeFilter !== item.offer.type && typeFilter !== window.filters.TYPE_ANY) {
-          return false;
-        }
-      }
-      if (priceFilter) {
-        if (priceFilter !== getFilterPrice(item.offer.price) && priceFilter !== window.filters.TYPE_ANY) {
-          return false;
-        }
-      }
-      if (roomsFilter) {
-        if (roomsFilter !== item.offer.rooms.toString() && roomsFilter !== window.filters.TYPE_ANY) {
-          return false;
-        }
-      }
-      if (guestsFilter) {
-        if (guestsFilter !== item.offer.guests.toString() && guestsFilter !== window.filters.TYPE_ANY) {
-          return false;
-        }
-      }
-      if (featuresFilter && featuresFilter.length) {
-        var exist = featuresFilter.every(function (element) {
-          return item.offer.features.includes(element);
-        });
-
-        if (!exist) {
-          return false;
-        }
-      }
-      return true;
+      return getFilterType(item) && getFilterPrice(item) && getFilterRooms(item) && getFilterGuests(item) && getFilterFeatures(item);
     });
 
     window.pin.render(updatedPinsData);
   };
 
-  window.filters.typeChangeHandler = window.debounce(function (type) {
-    typeFilter = type;
+  var filterChangeHandler = function () {
     window.card.remove();
     updatePins();
+  };
+
+  window.filters.typeChangeHandler = window.debounce(function (type) {
+    typeFilter = type;
+    filterChangeHandler();
   });
 
   window.filters.priceChangeHandler = window.debounce(function (price) {
     priceFilter = price;
-    window.card.remove();
-    updatePins();
+    filterChangeHandler();
   });
 
   window.filters.roomsChangeHandler = window.debounce(function (rooms) {
     roomsFilter = rooms;
-    window.card.remove();
-    updatePins();
+    filterChangeHandler();
   });
 
   window.filters.guestsChangeHandler = window.debounce(function (guests) {
     guestsFilter = guests;
-    window.card.remove();
-    updatePins();
+    filterChangeHandler();
   });
 
   window.filters.inputChangeHandler = window.debounce(function (value) {
     featuresFilter = value;
-    window.card.remove();
-    updatePins();
+    filterChangeHandler();
   });
 
   var activatePageHandler = function (evt) {
