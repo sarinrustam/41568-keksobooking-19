@@ -2,7 +2,7 @@
 
 (function () {
   var form = document.querySelector('.map__filters');
-  var type = form.querySelector('#housing-type');
+  var housingType = form.querySelector('#housing-type');
 
   window.filters = {
     typeChangeHandler: function () {},
@@ -15,7 +15,7 @@
   };
 
   var init = function () {
-    type.addEventListener('change', typeChangeHandler);
+    housingType.addEventListener('change', typeChangeHandler);
   };
 
   window.filters.init = init;
