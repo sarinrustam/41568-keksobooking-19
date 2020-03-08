@@ -3,7 +3,7 @@
 (function () {
   var PIN_CLIENT_WIDTH = 25;
   var PIN_CLIENT_HEIGHT = 70;
-  var adsCount = 5;
+  var ADS_COUNT = 5;
 
   var mapPinsList = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -42,7 +42,7 @@
   };
 
   var render = function (ads) {
-    var count = ads.length >= adsCount ? adsCount : ads.length;
+    var count = ads.length >= ADS_COUNT ? ADS_COUNT : ads.length;
     var fragment = document.createDocumentFragment();
     removeAll();
 
