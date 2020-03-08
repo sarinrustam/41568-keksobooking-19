@@ -8,11 +8,11 @@
   var adForm = document.querySelector('.ad-form');
   var mapSection = document.querySelector('.map');
   var pinsData = [];
-  var typeFilter;
-  var priceFilter;
-  var roomsFilter;
-  var guestsFilter;
-  var featuresFilter;
+  var typeFilter = window.filters.TYPE_ANY;
+  var priceFilter = window.filters.TYPE_ANY;
+  var roomsFilter = window.filters.TYPE_ANY;
+  var guestsFilter = window.filters.TYPE_ANY;
+  var featuresFilter = [];
 
   var getFilterPrice = function (item) {
     var filter;
@@ -26,40 +26,19 @@
       filter = window.filters.PRICE_NAMES.HIGH;
     }
 
-    if (priceFilter) {
-      if (priceFilter !== filter && priceFilter !== window.filters.TYPE_ANY) {
-        return false;
-      }
-    }
-
-    return true;
+    return priceFilter && (priceFilter === filter || priceFilter === window.filters.TYPE_ANY);
   };
 
   var getFilterType = function (item) {
-    if (typeFilter) {
-      if (typeFilter !== item.offer.type && typeFilter !== window.filters.TYPE_ANY) {
-        return false;
-      }
-    }
-    return true;
+    return typeFilter && (typeFilter === item.offer.type || typeFilter === window.filters.TYPE_ANY);
   };
 
   var getFilterRooms = function (item) {
-    if (roomsFilter) {
-      if (roomsFilter !== item.offer.rooms.toString() && roomsFilter !== window.filters.TYPE_ANY) {
-        return false;
-      }
-    }
-    return true;
+    return roomsFilter && (roomsFilter === item.offer.rooms.toString() || roomsFilter === window.filters.TYPE_ANY);
   };
 
   var getFilterGuests = function (item) {
-    if (guestsFilter) {
-      if (guestsFilter !== item.offer.guests.toString() && guestsFilter !== window.filters.TYPE_ANY) {
-        return false;
-      }
-    }
-    return true;
+    return guestsFilter && (guestsFilter === item.offer.guests.toString() || guestsFilter === window.filters.TYPE_ANY);
   };
 
   var getFilterFeatures = function (item) {
