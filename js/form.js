@@ -107,7 +107,15 @@
       window.upload.save(new FormData(form), saveFormHandler, errorFormHandler);
     };
 
+    var formResetHandler = function (evt) {
+      evt.preventDefault();
+      form.reset();
+      deactivate();
+      window.map.deactivate();
+    };
+
     form.addEventListener('submit', submitFormHandler);
+    form.addEventListener('reset', formResetHandler);
 
     toggleFieldsAvailability(true);
     validateGuestsHandler();

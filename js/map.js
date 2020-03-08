@@ -121,6 +121,7 @@
     mapPinMain.addEventListener('keydown', activatePageHandler);
     window.pin.remove();
     window.mainPin.reset();
+    setMainPinCoordinateHandler();
   };
 
   var getMainPinCoordinate = function () {
