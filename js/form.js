@@ -26,6 +26,7 @@
   var inputArrival = document.querySelector('#timein');
   var inputDeparture = document.querySelector('#timeout');
   var form = document.querySelector('.ad-form');
+  var buttonReset = form.querySelector('.ad-form__reset');
 
   var toggleFieldsAvailability = function (disabled) {
     var formFieldset = document.querySelector('.ad-form').children;
@@ -120,7 +121,7 @@
     };
 
     form.addEventListener('submit', submitFormHandler);
-    form.addEventListener('reset', formResetHandler);
+    buttonReset.addEventListener('click', formResetHandler);
 
     toggleFieldsAvailability(true);
     validateGuestsHandler();
