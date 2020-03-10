@@ -95,7 +95,10 @@
       evt.preventDefault();
 
       var saveFormHandler = function () {
+        form.reset();
         deactivate();
+        window.card.remove();
+        window.filters.reset();
         window.map.deactivate();
         window.message.show(window.message.TYPES.SUCCESS);
       };
@@ -111,6 +114,8 @@
       evt.preventDefault();
       form.reset();
       deactivate();
+      window.card.remove();
+      window.filters.reset();
       window.map.deactivate();
     };
 

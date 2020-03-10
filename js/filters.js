@@ -52,6 +52,10 @@
     window.filters.inputChangeHandler(featuresValues);
   };
 
+  var resetForm = function () {
+    form.reset();
+  };
+
   var init = function () {
     housingType.addEventListener('change', typeChangeHandler);
     housingPrice.addEventListener('change', priceChangeHandler);
@@ -71,6 +75,7 @@
     TYPE_ANY: TYPE_ANY,
     PRICE: PriceFilters,
     PRICE_NAMES: PriceFilterNames,
+    reset: resetForm,
     init: init
   };
 }());

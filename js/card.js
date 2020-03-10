@@ -136,7 +136,7 @@
     };
 
     cardPopupClose.addEventListener('click', closePopupHandler);
-    cardPopupClose.addEventListener('keydown', function (evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.key === window.util.BUTTONS.ESC) {
         closePopupHandler();
       }
@@ -153,6 +153,6 @@
 
   window.card = {
     render: renderCard,
-    remove: remove
+    remove: remove,
   };
 })();

@@ -121,6 +121,11 @@
     mapPinMain.addEventListener('keydown', activatePageHandler);
     window.pin.remove();
     window.mainPin.reset();
+    typeFilter = window.filters.TYPE_ANY;
+    priceFilter = window.filters.TYPE_ANY;
+    roomsFilter = window.filters.TYPE_ANY;
+    guestsFilter = window.filters.TYPE_ANY;
+    featuresFilter = [];
     setMainPinCoordinateHandler();
   };
 
