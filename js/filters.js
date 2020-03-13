@@ -1,14 +1,6 @@
 'use strict';
 
 (function () {
-  var form = document.querySelector('.map__filters');
-  var housingType = form.querySelector('#housing-type');
-  var housingPrice = form.querySelector('#housing-price');
-  var housingRooms = form.querySelector('#housing-rooms');
-  var housingGuests = form.querySelector('#housing-guests');
-  var features = form.querySelector('.map__features');
-  var housingFeaturesInputs = features.querySelectorAll('.map__checkbox');
-  var featuresValues = [];
   var TYPE_ANY = 'any';
 
   var PriceFilters = {
@@ -21,6 +13,15 @@
     MIDDLE: 'middle',
     HIGH: 'high'
   };
+
+  var form = document.querySelector('.map__filters');
+  var housingType = form.querySelector('#housing-type');
+  var housingPrice = form.querySelector('#housing-price');
+  var housingRooms = form.querySelector('#housing-rooms');
+  var housingGuests = form.querySelector('#housing-guests');
+  var features = form.querySelector('.map__features');
+  var housingFeaturesInputs = features.querySelectorAll('.map__checkbox');
+  var featuresValues = [];
 
   var typeChangeHandler = function (evt) {
     var value = evt.target.value;
