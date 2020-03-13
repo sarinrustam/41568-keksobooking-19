@@ -79,6 +79,11 @@
     form.reset();
   };
 
+  var insertAddress = function (value) {
+    var inputAddress = document.querySelector('#address');
+    inputAddress.value = value;
+  };
+
   var init = function () {
     inputRooms.addEventListener('change', validateGuestsHandler);
     inputGuests.addEventListener('change', validateGuestsHandler);
@@ -128,6 +133,7 @@
   };
 
   window.form = {
+    insertAddress: insertAddress,
     toggleFieldsAvailability: toggleFieldsAvailability,
     init: init
   };

@@ -1,9 +1,6 @@
 'use strict';
 
 (function () {
-  var PIN_MAIN_WIDTH = 65;
-  var PIN_MAIN_HEIGTH = 65;
-
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapSection = document.querySelector('.map');
@@ -126,30 +123,12 @@
     roomsFilter = window.filters.TYPE_ANY;
     guestsFilter = window.filters.TYPE_ANY;
     featuresFilter = [];
-    setMainPinCoordinateHandler();
-  };
-
-  var getMainPinCoordinate = function () {
-    var pinMainLeft = parseInt(mapPinMain.style.left, window.util.NUMBER_SYSTEM);
-    var pinMainTop = parseInt(mapPinMain.style.top, window.util.NUMBER_SYSTEM);
-    var mapFadded = mapSection.classList.contains('map--fadded');
-
-    var pinY = mapFadded ? pinMainTop + PIN_MAIN_HEIGTH / 2 : pinMainTop + PIN_MAIN_HEIGTH;
-
-    return Math.round(pinMainLeft + PIN_MAIN_WIDTH / 2) + ', ' + Math.round(pinY);
-  };
-
-  var setMainPinCoordinateHandler = function () {
-    var inputAddress = document.querySelector('#address');
-    inputAddress.value = getMainPinCoordinate();
   };
 
   var init = function () {
     mapPinMain.addEventListener('mouseup', activatePageHandler);
-    mapPinMain.addEventListener('mouseup', setMainPinCoordinateHandler);
     mapPinMain.addEventListener('keydown', activatePageHandler);
 
-    setMainPinCoordinateHandler();
     window.mainPin.init();
   };
 
