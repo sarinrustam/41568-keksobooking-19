@@ -130,6 +130,7 @@
 
     toggleFieldsAvailability(true);
     validateGuestsHandler();
+    validateTypeHandler();
   };
 
   window.form = {
