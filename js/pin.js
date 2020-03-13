@@ -33,12 +33,12 @@
   };
 
   var removeAll = function () {
-    var pins = mapPinsList.querySelectorAll('.map__pin');
-    for (var i = 0; i < pins.length; i++) {
-      if (!pins[i].classList.contains('map__pin--main')) {
-        mapPinsList.removeChild(pins[i]);
+    var pins = Array.prototype.slice(mapPinsList.querySelectorAll('.map__pin'));
+    pins.forEach(function (item) {
+      if (!item.classList.contains('map__pin--main')) {
+        mapPinsList.removeChild(item);
       }
-    }
+    });
   };
 
   var render = function (ads) {

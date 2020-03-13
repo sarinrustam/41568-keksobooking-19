@@ -29,7 +29,7 @@
   var buttonReset = form.querySelector('.ad-form__reset');
 
   var toggleFieldsAvailability = function (disabled) {
-    var formFieldset = document.querySelector('.ad-form').children;
+    var formFieldset = Array.prototype.slice(document.querySelector('.ad-form').children);
 
     window.util.disableElements(formFieldset, disabled);
   };

@@ -90,11 +90,11 @@
       var photoFragment = document.createDocumentFragment();
       photoTemplate.src = card.offer.photos[0];
 
-      for (var k = 1; k < card.offer.photos.length; k++) {
+      card.offer.photos.forEach(function (item) {
         var cardElementPhoto = photoTemplate.cloneNode();
-        cardElementPhoto.src = card.offer.photos[k];
+        cardElementPhoto.src = item;
         photoFragment.appendChild(cardElementPhoto);
-      }
+      });
 
       cardElementPhotos.appendChild(photoFragment);
     } else {

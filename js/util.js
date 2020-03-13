@@ -7,18 +7,6 @@
   };
   var NUMBER_SYSTEM = 10;
 
-  var generateRandomArray = function (array) {
-    var newArray = [];
-
-    for (var i = 0; i < array.length; i++) {
-      var item = window.util.getRandomElement(array);
-      if (!newArray.includes(item)) {
-        newArray.push(item);
-      }
-    }
-    return newArray;
-  };
-
   var getRandomNumber = function (from, to) {
     return Math.round(Math.random() * to) + from;
   };
@@ -28,9 +16,9 @@
   };
 
   var disableElements = function (arrElements, disabled) {
-    for (var i = 0; i < arrElements.length; i++) {
-      arrElements[i].disabled = disabled;
-    }
+    arrElements.forEach(function (item) {
+      item.disabled = disabled;
+    });
   };
 
   var showMessage = function (text) {
@@ -44,7 +32,6 @@
     BUTTONS: Buttons,
     getRandomNumber: getRandomNumber,
     getRandomElement: getRandomElement,
-    generateRandomArray: generateRandomArray,
     disableElements: disableElements,
     showMessage: showMessage,
     NUMBER_SYSTEM: NUMBER_SYSTEM
