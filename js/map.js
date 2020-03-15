@@ -103,10 +103,10 @@
 
       mapSection.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
-      window.form.toggleFieldsAvailability(false);
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
       window.upload.load(successHandler, errorHandler);
+      window.form.init();
     }
   };
 

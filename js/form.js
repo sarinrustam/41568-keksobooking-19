@@ -27,9 +27,16 @@
   var inputDeparture = document.querySelector('#timeout');
   var form = document.querySelector('.ad-form');
   var buttonReset = form.querySelector('.ad-form__reset');
+  var avatarChooser = document.querySelector('#avatar');
+  var avatarPreview = document.querySelector('.ad-form-header__preview');
+  var homeChooser = document.querySelector('#images');
+  var homePreview = document.querySelector('.ad-form__photo');
+
+  var avatarImg = new window.image.FileImage(avatarChooser, avatarPreview);
+  var homeImg = new window.image.FileImage(homeChooser, homePreview);
 
   var toggleFieldsAvailability = function (disabled) {
-    var formFieldset = Array.prototype.slice(document.querySelector('.ad-form').children);
+    var formFieldset = [].slice.call(document.querySelector('.ad-form').children);
 
     window.util.disableElements(formFieldset, disabled);
   };
@@ -77,6 +84,9 @@
   var deactivate = function () {
     form.classList.add('ad-form--disabled');
     form.reset();
+    window.form.toggleFieldsAvailability(true);
+    avatarImg.remove();
+    homeImg.remove();
   };
 
   var insertAddress = function (value) {
@@ -128,9 +138,12 @@
     form.addEventListener('submit', submitFormHandler);
     buttonReset.addEventListener('click', formResetHandler);
 
-    toggleFieldsAvailability(true);
+    toggleFieldsAvailability(false);
     validateGuestsHandler();
     validateTypeHandler();
+
+    avatarImg.init();
+    homeImg.init();
   };
 
   window.form = {

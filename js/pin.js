@@ -33,7 +33,7 @@
   };
 
   var removeAll = function () {
-    var pins = Array.prototype.slice(mapPinsList.querySelectorAll('.map__pin'));
+    var pins = [].slice.call(mapPinsList.querySelectorAll('.map__pin'));
     pins.forEach(function (item) {
       if (!item.classList.contains('map__pin--main')) {
         mapPinsList.removeChild(item);
