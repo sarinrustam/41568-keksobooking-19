@@ -91,6 +91,7 @@
 
   var activatePageHandler = function (evt) {
     if (evt.button === window.util.BUTTONS.LMB || evt.key === window.util.BUTTONS.ENT) {
+
       var successHandler = function (response) {
         pinsData = response;
         updatePins();
